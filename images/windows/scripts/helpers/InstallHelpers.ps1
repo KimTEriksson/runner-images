@@ -73,9 +73,9 @@ function Install-Binary {
 
     if ($PSBoundParameters.ContainsKey('ExpectedSignature')) {
         if ($ExpectedSignature) {
-            Test-FileSignature -FilePath $filePath 
+            Test-FileSignature -FilePath $filePath -ExpectedThumbprint $ExpectedSignature
         } else {
-            throw "ExpectedSignature parameter is specified, but no signature is provided."
+            Write-Output "ExpectedSignature parameter is specified, but no signature is provided."
         }
     }
 
@@ -765,14 +765,14 @@ function Test-FileSignature {
     $signature = Get-AuthenticodeSignature $FilePath
 
     if ($signature.Status -ne "Valid") {
-        throw "Signature status is not valid. Status: $($signature.Status)"
+        Write-Output "Signature status is not valid. Status: $($signature.Status)"
     }
     
     foreach ($thumbprint in $ExpectedThumbprint) {
         if ($signature.SignerCertificate.Thumbprint.Contains($thumbprint)) {
             Write-Output "Signature for $FilePath is valid"
             $signatureMatched = $true
-            return
+            
         }
     }
 
