@@ -766,20 +766,23 @@ function Test-FileSignature {
 
     if ($signature.Status -ne "Valid") {
         Write-Output "Signature status is not valid. Status: $($signature.Status)"
+        return
     }
     
     foreach ($thumbprint in $ExpectedThumbprint) {
         if ($signature.SignerCertificate.Thumbprint.Contains($thumbprint)) {
             Write-Output "Signature for $FilePath is valid"
             $signatureMatched = $true
-            
+            return
         }
     }
 
     if ($signatureMatched) {
         Write-Output "Signature for $FilePath is valid"
+        return
     }
     else {
         Write-Output "Signature thumbprint do not match expected."
+        return
     }
 }
