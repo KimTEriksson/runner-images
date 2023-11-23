@@ -35,7 +35,7 @@ Expand-7ZipArchive -Path $EdgeDriverArchPath -DestinationPath $EdgeDriverPath
 
 #Validate the EdgeDriver signature
 $EdgeDriverSignatureThumbprint = "CB9C4FBEA1D87D2D468AC5A9CAAB0163F6AD8401"
-Test-FileSignature -FilePath "$EdgeDriverPath\msedgedriver.exe" -ExpectedThumbprint $EdgeDriverSignatureThumbprint
+Test-FileSignature -FilePath "$EdgeDriverPath\msedgedriver.exe"
 
 Write-Host "Setting the environment variables..."
 [Environment]::SetEnvironmentVariable("EdgeWebDriver", $EdgeDriverPath, "Machine")

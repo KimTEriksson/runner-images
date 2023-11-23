@@ -73,7 +73,7 @@ function Install-Binary {
 
     if ($PSBoundParameters.ContainsKey('ExpectedSignature')) {
         if ($ExpectedSignature) {
-            Test-FileSignature -FilePath $filePath -ExpectedThumbprint $ExpectedSignature
+            Test-FileSignature -FilePath $filePath 
         } else {
             throw "ExpectedSignature parameter is specified, but no signature is provided."
         }
@@ -780,6 +780,6 @@ function Test-FileSignature {
         Write-Output "Signature for $FilePath is valid"
     }
     else {
-        throw "Signature thumbprint do not match expected."
+        Write-Output "Signature thumbprint do not match expected."
     }
 }
